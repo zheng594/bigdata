@@ -18,7 +18,7 @@ public class HdfsClient {
         FileSystem fileSystem = FileSystem.get(configuration);
 
         //2拷贝本地数据到集群
-        fileSystem.copyFromLocalFile(new Path("/Users/zheng/test.log"),new Path("/test.log"));
+        fileSystem.copyFromLocalFile(new Path("/Users/zheng/difficulty.log"),new Path("/difficulty.log"));
 
         //3.关闭文件系统
         fileSystem.close();

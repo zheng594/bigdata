@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+    <style type="text/css" media="screen">
+
+        .editor {
+            position: relative;
+        }
+
+        .result {
+            position: absolute;
+            left: 0;
+            /*padding-top: 200px;*/
+        }
+    </style>
+
+</head>
+<body>
+<input type="button" value="保存" id="save">
+<input type="button" value="运行" id="run">
+<div id="editor" class="editor"></div>
+
+<div  class="result">
+    查询结果:<span id="result"></span>
+</div>
+
+
+<script type="text/javascript" th:src="@{/js/ace/ace.js}"></script>
+<script type="text/javascript" th:src="@{/js/ace/ext-language_tools.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/edit.js}"></script>
+
+</body>
+</html>
