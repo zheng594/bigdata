@@ -1,6 +1,5 @@
 package com.bigdata.spark
 
-import org.apache.hadoop.security.UserGroupInformation
 import org.apache.spark.sql.SparkSession
 
 
@@ -9,17 +8,15 @@ import org.apache.spark.sql.SparkSession
  */
 object MainApp {
     def main(args: Array[String]): Unit = {
-        System.setProperty("HADOOP_CONF_DIR", "/Users/zheng/hadoop/hadoop-3.2.1/config")
 
         val spark = SparkSession
-          .builder
-          .appName("Spark Demo")
-//          .master("yarn")
-//          .master("local")
-//          .master("spark://zheng-2.local:7077")
+          .builder.enableHiveSupport()
+          .appName("SparkSql")
+          .master("spark://zheng-2.local:7077")  //提交到集群
+          .config("hive.metastore.warehouse.dir", "/Users/zheng/hadoop/warehouse")
           .getOrCreate()
 
-        spark.sql("show databases")
+        spark.sql("show databases").collect()
     }
 
 }

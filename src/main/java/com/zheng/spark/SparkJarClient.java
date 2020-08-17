@@ -20,12 +20,17 @@ public class SparkJarClient {
                 .setConf("spark.driver.memory", "2g")
                 .setConf("spark.executor.memory", "1g")
                 .setConf("spark.executor.cores", "3")
+//                .setConf("spark.yarn.queue","spark")
                 .startApplication();
 
         SparkAppHandle.State state = sparkAppHandle.getState();
         String applicationId = null;
-        while (state != SparkAppHandle.State.RUNNING) {
+        while (true) {
             System.out.println("applicationId:" + sparkAppHandle.getAppId() + "   ----------------------" + state.name());
+
+            if(state == SparkAppHandle.State.RUNNING){
+                break;
+            }
 
             applicationId = sparkAppHandle.getAppId();
             if (applicationId != null) {
