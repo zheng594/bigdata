@@ -1,4 +1,4 @@
-package com.zheng.hive;
+package com.zheng.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,9 +13,8 @@ import java.sql.*;
  * Created by zheng on 2020/4/9.
  */
 @Service
-public class JdbcSqlClient {
-    private static final Logger logger = LoggerFactory.getLogger(JdbcSqlClient.class);
-
+public class ThriftServerClient {
+    private static final Logger logger = LoggerFactory.getLogger(ThriftServerClient.class);
 
     private Connection getCon() {
         Connection conn = null;
@@ -54,7 +53,7 @@ public class JdbcSqlClient {
     }
 
     public static void main(String[] args) {
-        JdbcSqlClient hiveClient = new JdbcSqlClient();
+        ThriftServerClient hiveClient = new ThriftServerClient();
         ResultSet resultSet = hiveClient.querySql("show databases");
         System.out.println(resultSet);
     }

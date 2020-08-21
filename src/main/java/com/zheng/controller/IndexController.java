@@ -2,7 +2,7 @@ package com.zheng.controller;
 
 import com.zheng.model.Result;
 import com.zheng.model.SqlVO;
-import com.zheng.spark.SparkSqlYarnClient;
+import com.zheng.spark.SparkSqlJob;
 import org.apache.spark.sql.Row;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +24,7 @@ public class IndexController {
     public Result querySql(@RequestBody SqlVO sqlVO) {
         Row[] rows = null;
         try {
-            rows = SparkSqlYarnClient.run(sqlVO.getSql());
+            rows =  SparkSqlJob.runJob(sqlVO.getSql());
         } catch (Exception e) {
             return Result.failureResult(e.getMessage());
         }
