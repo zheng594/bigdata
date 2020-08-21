@@ -1,4 +1,9 @@
-package com.zheng.service;
+package com.zheng.spark
+
+import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.sql.{DataFrame, Dataset, Row, SparkSession}
+import org.apache.spark.sql.hive.thriftserver.SparkSQLCLIDriver
+import org.apache.spark.sql.internal.SQLConf
 
 /**
  * Created by zheng on 2020/8/14
