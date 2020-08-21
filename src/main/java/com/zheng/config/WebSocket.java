@@ -2,7 +2,7 @@ package com.zheng.config;
 
 import com.alibaba.fastjson.JSON;
 import com.zheng.model.MessageVO;
-import com.zheng.spark.SparkSqlJob;
+import com.zheng.service.spark.SparkSqlJob;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.spark.sql.Row;
 import org.springframework.stereotype.Component;

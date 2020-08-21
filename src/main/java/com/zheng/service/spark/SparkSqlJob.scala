@@ -1,4 +1,4 @@
-package com.zheng.spark
+package com.zheng.service.spark
 
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.{DataFrame, Dataset, Row, SparkSession}

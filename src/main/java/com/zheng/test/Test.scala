@@ -1,6 +1,6 @@
 package com.zheng.test
 
-import com.zheng.spark.SparkSqlJob
+import com.zheng.service.spark.SparkSqlJob
 
 /**
  * Created by zheng on 2020/4/14.

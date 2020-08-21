@@ -2,7 +2,7 @@ package com.zheng.controller;
 
 import com.zheng.model.Result;
 import com.zheng.model.SqlVO;
-import com.zheng.spark.SparkSqlJob;
+import com.zheng.service.spark.SparkSqlJob;
 import org.apache.spark.sql.Row;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;

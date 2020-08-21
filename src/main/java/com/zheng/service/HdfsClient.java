@@ -1,4 +1,4 @@
-package com.zheng.hdfs;
+package com.zheng.service;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
