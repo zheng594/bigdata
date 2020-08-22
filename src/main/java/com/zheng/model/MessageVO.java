@@ -12,4 +12,6 @@ public class MessageVO {
     private String status;//open ,running,close
 
     private String message;
+
+    private Object data;
 }

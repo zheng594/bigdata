@@ -23,6 +23,7 @@ var EditObj = function () {
 
             //todo 点击开始执行按钮
             $('#run').on('click', function () {
+                $('#result').empty()
                 $('#result').append("开始执行<br>")
                 EditObj.run(editor.getValue())
             })
@@ -66,13 +67,39 @@ var EditObj = function () {
                 //收到消息事件
                 socket.onmessage = function (event) {
                     var obj = JSON.parse(event.data);
-                    console.info(obj)
                     sessionId = obj.sessionId;
-                    $('#result').append(obj.message+"<br>")
+                    var data = obj.data;
+                    if(data){
+                        var cols = data.columnNames;
+
+                        var str = "<table border='1'><tr>"
+                        for(var i=0;i<cols.length;i++){
+                            str += "<td>"+cols[i]+"</td>";
+                        }
+                        str += "</tr>"
+
+                        var list = data.data;
+                        var schemas = data.schemas;
+                        for(var i=0;i<list.length;i++){
+                            var tmp = list[i];
+                            str += "<tr>"
+                            for(var j=0;j<schemas.length;j++) {
+                                var value = tmp[schemas[j]];
+                                str += "<td>"+value+"</td>";
+                            }
+                            str += "</tr>"
+                        }
+                        str += "</table>"
+
+                        $('#result').append(str+"<br>")
+                    }else{
+                        $('#result').append(obj.message+"<br>")
+                    }
 
                 };
                 //连接关闭事件
                 socket.onclose = function () {
+                    $('#result').append("连接已关闭，请刷新页面后重新执行")
                     console.log("Socket已关闭");
                 };
                 //发生了错误事件

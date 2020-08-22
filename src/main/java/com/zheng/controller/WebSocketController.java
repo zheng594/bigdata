@@ -19,6 +19,6 @@ public class WebSocketController {
     @RequestMapping("/run")
     @ResponseBody
     public void run(@RequestBody SqlVO sqlVO) {
-        WebSocket.sendMessage(sqlVO.getSql(), sqlVO.getSessionId());
+        WebSocket.run(sqlVO.getType(), sqlVO.getSql(), sqlVO.getSessionId());
     }
 }

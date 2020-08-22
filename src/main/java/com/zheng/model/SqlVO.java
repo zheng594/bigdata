@@ -7,6 +7,7 @@ import lombok.Data;
  */
 @Data
 public class SqlVO {
+    private String type;
     private String sql;
     private String sessionId;
 }

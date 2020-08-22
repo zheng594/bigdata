@@ -4,13 +4,13 @@ import com.alibaba.fastjson.JSON;
 import com.zheng.model.MessageVO;
 import com.zheng.service.spark.SparkSqlJob;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.spark.sql.Row;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -70,22 +70,26 @@ public class WebSocket {
         log.error("发生错误：{}，Session ID： {}", error.getMessage(), session.getId());
     }
 
-    /**
-     * 发送消息，实践表明，每次浏览器刷新，session会发生变化。
-     *
-     * @param session
-     * @param message
-     */
     public static void sendMessage(Session session, String status, String message) {
+        sendMessage(session,status,message,null);
+    }
+
+        /**
+         * 发送消息，实践表明，每次浏览器刷新，session会发生变化。
+         *
+         * @param session
+         * @param message
+         */
+    public static void sendMessage(Session session, String status, String message,Object data) {
         try {
             MessageVO messageVO = new MessageVO();
             messageVO.setSessionId(session.getId());
             messageVO.setStatus(status);
             messageVO.setMessage(message);
+            messageVO.setData(data);
             session.getBasicRemote().sendText(JSON.toJSONString(messageVO));
         } catch (IOException e) {
-            log.error("发送消息出错：{}", e.getMessage());
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
     }
 
@@ -110,7 +114,7 @@ public class WebSocket {
      * @param message
      * @throws IOException
      */
-    public static void sendMessage(String message, String sessionId){
+    public static void run(String type,String message, String sessionId) {
         Session session = null;
         for (Session s : SessionSet) {
             if (s.getId().equals(sessionId)) {
@@ -119,14 +123,9 @@ public class WebSocket {
             }
         }
         if (session != null) {
-            Row[] rows = null;
             try {
-                rows = SparkSqlJob.runJob(message);
-                for(Row row: rows){
-                    row.schema();
-                    row.jsonValue();
-                }
-                sendMessage(session, "running", rows.toString());
+                Map<String,Object> data = SparkSqlJob.runJob(message);
+                sendMessage(session, "running", "",data);
             } catch (Exception e) {
                 sendMessage(session, "running", e.getMessage());
             }
