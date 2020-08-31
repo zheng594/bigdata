@@ -35,8 +35,7 @@ public class YarnManager {
 
     public ApplicationId getApplicationId(String applicationName) {
         Set<String> applicationTypes = Sets.newHashSet();
-        applicationTypes.add("MAPREDUCE");
-        applicationTypes.add("SPARK");
+        applicationTypes.add("SPARK");//指定应用类型
         EnumSet<YarnApplicationState> applicationStates = EnumSet.noneOf(YarnApplicationState.class);
         applicationStates.add(YarnApplicationState.ACCEPTED);
         applicationStates.add(YarnApplicationState.SUBMITTED);
