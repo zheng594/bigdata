@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @Slf4j
 @Component
-@ServerEndpoint("/websocket/{name}")
+@ServerEndpoint("/websocket")
 public class WebSocket {
     @PostConstruct
     public void init() {

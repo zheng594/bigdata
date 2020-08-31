@@ -59,7 +59,7 @@ var EditObj = function () {
             } else {
                 //实现化WebSocket对象
                 //ws对应http、wss对应https。
-                socket = new WebSocket("ws://localhost:8086/websocket/analyse");
+                socket = new WebSocket("ws://localhost:8086/websocket");
                 //连接打开事件
                 socket.onopen = function () {
                     console.info("连接已打开")

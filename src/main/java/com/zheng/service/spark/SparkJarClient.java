@@ -6,6 +6,7 @@ import org.apache.spark.launcher.SparkLauncher;
 import java.io.IOException;
 
 /**
+ * 提交jar到yarn集群
  * Created by zheng on 2020-04-07.
  */
 public class SparkJarClient {
@@ -16,11 +17,11 @@ public class SparkJarClient {
                 .setSparkHome("/Users/zheng/spark-3.0.0")
                 .setDeployMode("cluster")
                 .setMainClass("org.apache.spark.examples.SparkPi")
-                .setAppResource("/Users/zheng/spark-3.0.0/examples/jars/spark-examples_2.12-3.0.0-preview2.jar")
+                .setAppResource("/Users/zheng/spark-3.0.0/examples/jars/spark-examples_2.12-3.0.0.jar")
                 .setConf("spark.driver.memory", "2g")
                 .setConf("spark.executor.memory", "1g")
                 .setConf("spark.executor.cores", "3")
-//                .setConf("spark.yarn.queue","spark")
+                .setConf("spark.yarn.queue","spark")
                 .startApplication();
 
         SparkAppHandle.State state = sparkAppHandle.getState();
@@ -38,9 +39,6 @@ public class SparkJarClient {
                 break;
             }
         }
-
-
-
 
     }
 }
