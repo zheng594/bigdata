@@ -10,7 +10,6 @@ import org.apache.hadoop.yarn.api.records.ApplicationReport;
 import org.apache.hadoop.yarn.api.records.YarnApplicationState;
 import org.apache.hadoop.yarn.client.api.YarnClient;
 import org.apache.hadoop.yarn.conf.YarnConfiguration;
-import org.apache.hadoop.yarn.exceptions.YarnException;
 
 import java.io.IOException;
 import java.util.EnumSet;
@@ -34,28 +33,20 @@ public class YarnManager {
     }
 
     public ApplicationId getApplicationId(String applicationName) {
-        Set<String> applicationTypes = Sets.newHashSet();
-        applicationTypes.add("SPARK");//指定应用类型
-        EnumSet<YarnApplicationState> applicationStates = EnumSet.noneOf(YarnApplicationState.class);
-        applicationStates.add(YarnApplicationState.ACCEPTED);
-        applicationStates.add(YarnApplicationState.SUBMITTED);
-        applicationStates.add(YarnApplicationState.RUNNING);
-        applicationStates.add(YarnApplicationState.NEW);
-        applicationStates.add(YarnApplicationState.NEW_SAVING);
+        Set<String> applicationTypes = Sets.newHashSet("SPARK");
+        EnumSet<YarnApplicationState> applicationStates = EnumSet.allOf(YarnApplicationState.class);
 
         List<ApplicationReport> applicationReports = null;
         try {
             init();
             applicationReports = yarnClient.getApplications(applicationTypes, applicationStates);
-        } catch (YarnException e) {
-            log.error("client.getApplications YarnException", e);
-        } catch (IOException e) {
-            log.error("client.getApplications IOException", e);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
         } finally {
             try {
                 yarnClient.close();
             } catch (IOException e) {
-                log.error("client.getApplications IOException", e);
+                log.error(e.getMessage(), e);
             }
         }
 
@@ -77,15 +68,13 @@ public class YarnManager {
             init();
             ApplicationReport applicationReport = yarnClient.getApplicationReport(applicationId);
             yarnApplicationState = applicationReport.getYarnApplicationState();
-        } catch (YarnException e) {
-            log.error("client.getApplications YarnException", e);
-        } catch (IOException e) {
-            log.error("client.getApplications IOException", e);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
         } finally {
             try {
                 yarnClient.close();
             } catch (IOException e) {
-                log.error("client.getApplications IOException", e);
+                log.error(e.getMessage(), e);
             }
         }
 
