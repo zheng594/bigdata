@@ -19,7 +19,7 @@ import org.apache.spark.sql.{Dataset, Row, SparkSession}
 @Slf4j
 object SparkSqlJob {
   private var sparkSession: SparkSession = null
-  System.setProperty("HADOOP_USER_NAME", "zheng")
+//  System.setProperty("HADOOP_USER_NAME", "zheng")
 
   def init() = {
     if (sparkSession == null) {
@@ -27,8 +27,9 @@ object SparkSqlJob {
       sparkSession = SparkSession
         .builder.enableHiveSupport()
         .appName("SparkSql")
-        .master("spark://zheng.local:7077") //提交到集群
-        .getOrCreate()
+//        .master("spark://zheng.local:7077") //提交到spark集群
+          .master("yarn") //提交到yarn
+          .getOrCreate()
       val sc: SparkContext = sparkSession.sparkContext
       sc.setLogLevel("WARN")
     }

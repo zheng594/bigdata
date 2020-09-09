@@ -14,8 +14,8 @@ public class SparkJarClient {
         SparkLauncher sparkLauncher = new SparkLauncher();
         SparkAppHandle sparkAppHandle = sparkLauncher
                 .setMaster("yarn")
-                .setSparkHome("/Users/zheng/spark-3.0.0")
                 .setDeployMode("cluster")
+                .setSparkHome("/Users/zheng/spark-3.0.0")
                 .setMainClass("org.apache.spark.examples.SparkPi")
                 .setAppResource("/Users/zheng/spark-3.0.0/examples/jars/spark-examples_2.12-3.0.0.jar")
                 .setConf("spark.driver.memory", "2g")
