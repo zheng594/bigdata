@@ -6,13 +6,12 @@ import com.zheng.service.spark.SparkSqlJob;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by zheng on 2020/8/21
@@ -21,14 +20,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Component
 @ServerEndpoint("/websocket")
 public class WebSocket {
-    @PostConstruct
-    public void init() {
-        System.out.println("websocket 加载");
-    }
 
-    private static final AtomicInteger OnlineCount = new AtomicInteger(0);
-    // concurrent包的线程安全Set，用来存放每个客户端对应的Session对象。
-    private static CopyOnWriteArraySet<Session> SessionSet = new CopyOnWriteArraySet<Session>();
+    private static CopyOnWriteArraySet<Session> sessionSet = new CopyOnWriteArraySet<Session>();
+
+    private static ConcurrentHashMap<String,Session> sessionMap = new ConcurrentHashMap<>();
 
 
     /**
@@ -36,7 +31,7 @@ public class WebSocket {
      */
     @OnOpen
     public void onOpen(Session session) {
-        SessionSet.add(session);
+        sessionSet.add(session);
         sendMessage(session, "open", "");
     }
 
@@ -45,7 +40,7 @@ public class WebSocket {
      */
     @OnClose
     public void onClose(Session session) {
-        SessionSet.remove(session);
+        sessionSet.remove(session);
         sendMessage(session, "close", "连接已关闭");
     }
 
@@ -100,7 +95,7 @@ public class WebSocket {
      * @throws IOException
      */
     public static void broadCastInfo(String message) throws IOException {
-        for (Session session : SessionSet) {
+        for (Session session : sessionSet) {
             if (session.isOpen()) {
                 sendMessage(session, "running", message);
             }
@@ -116,7 +111,7 @@ public class WebSocket {
      */
     public static void run(String type,String message, String sessionId) {
         Session session = null;
-        for (Session s : SessionSet) {
+        for (Session s : sessionSet) {
             if (s.getId().equals(sessionId)) {
                 session = s;
                 break;

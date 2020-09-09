@@ -13,7 +13,7 @@ import org.apache.spark.sql.types.StructField
 import org.apache.spark.sql.{Dataset, Row, SparkSession}
 
 /**
- *
+ * spark sql on yarn
  * Created by zheng on 2020/8/14
  */
 @Slf4j
@@ -41,6 +41,11 @@ object SparkSqlJob {
     getData(df)
   }
 
+  /**
+   * 拼装返回的数据
+   * @param dataSet
+   * @return
+   */
   def getData(dataSet: Dataset[Row]): util.HashMap[String, Object] = {
     var list: Array[Row] = null
     try {
