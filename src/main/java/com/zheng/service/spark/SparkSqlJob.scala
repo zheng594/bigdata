@@ -23,7 +23,6 @@ object SparkSqlJob {
 
   def init() = {
     if (sparkSession == null) {
-      val conf = new SQLConf() //会自动读取resource目录下的xml配置
       sparkSession = SparkSession
         .builder.enableHiveSupport()
         .appName("SparkSql")
@@ -33,8 +32,8 @@ object SparkSqlJob {
       val sc: SparkContext = sparkSession.sparkContext
       sc.setLogLevel("WARN")
     }
-  }
 
+  }
   def runJob(sql: String): util.HashMap[String, Object] = {
     this.init()
     var df: Dataset[Row] = sparkSession.sql(sql)
