@@ -1,6 +1,6 @@
 package com.zheng.test
 
-import com.zheng.service.spark.SparkSqlJob
+import com.zheng.service.yarn.SparkSqlClient
 
 /**
  * Created by zheng on 2020/4/14.
@@ -14,7 +14,7 @@ object Test {
         var sql = "select * from default.sales_csv"
         sql = "select * from ("+sql+") a limit 50"
 
-        var df = SparkSqlJob.runJob(sql);
+        var df = SparkSqlClient.runJob(sql);
         print()
     }
 }

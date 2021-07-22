@@ -2,7 +2,7 @@ package com.zheng.config;
 
 import com.alibaba.fastjson.JSON;
 import com.zheng.model.MessageVO;
-import com.zheng.service.spark.SparkSqlJob;
+import com.zheng.service.yarn.SparkSqlClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -119,7 +119,7 @@ public class WebSocket {
         }
         if (session != null) {
             try {
-                Map<String,Object> data = SparkSqlJob.runJob(message);
+                Map<String,Object> data = SparkSqlClient.runJob(message);
                 sendMessage(session, "running", "",data);
             } catch (Exception e) {
                 sendMessage(session, "running", e.getMessage());

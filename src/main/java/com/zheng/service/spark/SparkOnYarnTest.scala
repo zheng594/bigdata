@@ -6,7 +6,7 @@ import org.apache.spark.sql.SparkSession
 /**
  * Created by zheng on 2020/9/8
  */
-object SparkJob {
+object SparkOnYarnTest {
     def main(args: Array[String]): Unit = {
         val sparkSession = SparkSession
             .builder.enableHiveSupport()
