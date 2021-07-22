@@ -13,7 +13,7 @@ import java.util
 object ModifyColumn {
     def main(args: Array[String]): Unit = {
         val sparkSession = SparkSession.builder()
-            .appName("wordCount")
+            .appName("ModifyColumn")
             .master("local[*]")
             .enableHiveSupport()
             .getOrCreate()
