@@ -15,10 +15,15 @@ object WordCount {
 
         val filePath = "file:///Users/zheng/千万倾斜数据.csv"
         val file = sc.sparkContext.textFile(filePath)
-        val df = file.flatMap(_.split(","))
-            .map((_, 1))
-            .reduceByKey(_ + _)
-            .collect()
+        file.flatMap(_.split(",")).map((_, 1))
+            .sample(false,0.5)
+            .countByKey()
+            .foreach(println(_))
+
+//        val df = file.flatMap(_.split(","))
+//            .map((_, 1))
+//            .reduceByKey(_ + _)
+//            .collect()
 
 
     }

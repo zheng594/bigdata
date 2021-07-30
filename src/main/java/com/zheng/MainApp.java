@@ -9,9 +9,6 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import java.util.HashMap;
-import java.util.concurrent.ConcurrentHashMap;
-
 
 @EnableCaching
 @ServletComponentScan
@@ -22,8 +19,6 @@ public class MainApp extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        ConcurrentHashMap map = new ConcurrentHashMap();
-        map.put("2","");
         return builder.sources(MainApp.class);
     }
 
