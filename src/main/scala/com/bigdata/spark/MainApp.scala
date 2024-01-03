@@ -12,11 +12,13 @@ object MainApp {
         val spark = SparkSession
           .builder.enableHiveSupport()
           .appName("SparkSql")
-          .master("spark://zheng-2.local:7077")  //提交到集群
+//          .master("spark://zheng.local:7077")  //提交到集群
+          .master("local")  //提交到集群
           .config("hive.metastore.warehouse.dir", "/Users/zheng/hadoop/warehouse")
           .getOrCreate()
 
-        spark.sql("show databases").collect()
+        val df = spark.sql("select (select * from bi_sales) from bi_sales limit 1").collect()
+        print(df)
     }
 
 }

@@ -1,6 +1,5 @@
 package com.zheng.service.spark
 
-import com.zheng.service.demo.TableRelationship.sparkSession
 import org.apache.spark.sql.SparkSession
 
 /**

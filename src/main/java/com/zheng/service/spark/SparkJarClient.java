@@ -14,6 +14,7 @@ public class SparkJarClient {
         SparkLauncher sparkLauncher = new SparkLauncher();
         SparkAppHandle sparkAppHandle = sparkLauncher
                 .setMaster("yarn")
+//                .setMaster("local")
                 .setDeployMode("cluster")
                 .setSparkHome("/Users/zheng/spark-3.0.0")
                 .setMainClass("org.apache.spark.examples.SparkPi")
@@ -21,7 +22,7 @@ public class SparkJarClient {
                 .setConf("spark.driver.memory", "2g")
                 .setConf("spark.executor.memory", "1g")
                 .setConf("spark.executor.cores", "3")
-                .setConf("spark.yarn.queue","spark")
+//                .setConf("spark.yarn.queue","spark")
 //                .setConf(APPLICATION_PRIORITY,1)
                 .startApplication();
 

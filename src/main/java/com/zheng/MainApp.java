@@ -14,6 +14,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @ServletComponentScan
 @SpringBootApplication
 @EnableScheduling
+//@EnableKafka
 @Slf4j
 public class MainApp extends SpringBootServletInitializer {
 

@@ -26,10 +26,14 @@ object SparkSqlClient {
                 .builder.enableHiveSupport()
                 .appName("SparkSql")
                 //        .master("spark://zheng.local:7077") //提交到spark集群
-                .master("yarn") //提交到yarn
+//                .master("yarn") //提交到yarn
+                .master("local")
                 .getOrCreate()
+            sparkSession.newSession()
             val sc: SparkContext = sparkSession.sparkContext
+
             sc.setLogLevel("WARN")
+            sparkSession
         }
 
     }
